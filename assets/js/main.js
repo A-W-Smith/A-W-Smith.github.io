@@ -1,5 +1,5 @@
 /*
-	Phantom by HTML5 UP
+	Big Picture by HTML5 UP
 	html5up.net | @n33co
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
@@ -7,17 +7,20 @@
 (function($) {
 
 	skel.breakpoints({
-		xlarge:	'(max-width: 1680px)',
-		large:	'(max-width: 1280px)',
-		medium:	'(max-width: 980px)',
-		small:	'(max-width: 736px)',
-		xsmall:	'(max-width: 480px)'
+		wide: '(max-width: 1920px)',
+		normal: '(max-width: 1680px)',
+		narrow: '(max-width: 1280px)',
+		narrower: '(max-width: 1000px)',
+		mobile: '(max-width: 736px)',
+		mobilenarrow: '(max-width: 480px)',
 	});
 
 	$(function() {
 
 		var	$window = $(window),
-			$body = $('body');
+			$body = $('body'),
+			$header = $('#header'),
+			$all = $body.add($header);
 
 		// Disable animations/transitions until the page has loaded.
 			$body.addClass('is-loading');
@@ -25,174 +28,204 @@
 			$window.on('load', function() {
 				window.setTimeout(function() {
 					$body.removeClass('is-loading');
-				}, 100);
+				}, 0);
 			});
 
-		// Touch?
-			if (skel.vars.touch)
-				$body.addClass('is-touch');
+		// Touch mode.
+			skel.on('change', function() {
 
-		// Forms.
-			var $form = $('form');
+				if (skel.vars.mobile || skel.breakpoint('mobile').active)
+					$body.addClass('is-touch');
+				else
+					$body.removeClass('is-touch');
 
-			// Auto-resizing textareas.
-				$form.find('textarea').each(function() {
+			});
 
-					var $this = $(this),
-						$wrapper = $('<div class="textarea-wrapper"></div>'),
-						$submits = $this.find('input[type="submit"]');
+		// Fix: Placeholder polyfill.
+			$('form').placeholder();
 
-					$this
-						.wrap($wrapper)
-						.attr('rows', 1)
-						.css('overflow', 'hidden')
-						.css('resize', 'none')
-						.on('keydown', function(event) {
-
-							if (event.keyCode == 13
-							&&	event.ctrlKey) {
-
-								event.preventDefault();
-								event.stopPropagation();
-
-								$(this).blur();
-
-							}
-
-						})
-						.on('blur focus', function() {
-							$this.val($.trim($this.val()));
-						})
-						.on('input blur focus --init', function() {
-
-							$wrapper
-								.css('height', $this.height());
-
-							$this
-								.css('height', 'auto')
-								.css('height', $this.prop('scrollHeight') + 'px');
-
-						})
-						.on('keyup', function(event) {
-
-							if (event.keyCode == 9)
-								$this
-									.select();
-
-						})
-						.triggerHandler('--init');
-
-					// Fix.
-						if (skel.vars.browser == 'ie'
-						||	skel.vars.mobile)
-							$this
-								.css('max-height', '10em')
-								.css('overflow-y', 'auto');
-
-				});
-
-			// Fix: Placeholder polyfill.
-				$form.placeholder();
-
-		// Prioritize "important" elements on medium.
-			skel.on('+medium -medium', function() {
+		// Prioritize "important" elements on mobile.
+			skel.on('+mobile -mobile', function() {
 				$.prioritize(
-					'.important\\28 medium\\29',
-					skel.breakpoint('medium').active
+					'.important\\28 mobile\\29',
+					skel.breakpoint('mobile').active
 				);
 			});
 
-		// Menu.
-			var $menu = $('#menu');
+		// CSS polyfills (IE<9).
+			if (skel.vars.IEVersion < 9)
+				$(':last-child').addClass('last-child');
 
-			$menu.wrapInner('<div class="inner"></div>');
+		// Gallery.
+			$window.on('load', function() {
+				$('.gallery').poptrox({
+					baseZIndex: 10001,
+					useBodyOverflow: false,
+					usePopupEasyClose: false,
+					overlayColor: '#1f2328',
+					overlayOpacity: 0.65,
+					usePopupDefaultStyling: false,
+					usePopupCaption: true,
+					popupLoaderText: '',
+					windowMargin: (skel.breakpoint('mobile').active ? 5 : 50),
+					usePopupNav: true
+				});
+			});
 
-			$menu._locked = false;
+		// Section transitions.
+			if (!skel.vars.mobile
+			&&	skel.canUse('transition')) {
 
-			$menu._lock = function() {
+				var on = function() {
 
-				if ($menu._locked)
-					return false;
+					// Generic sections.
+						$('.main.style1')
+							.scrollex({
+								mode:		'middle',
+								delay:		100,
+								initialize:	function() { $(this).addClass('inactive'); },
+								terminate:	function() { $(this).removeClass('inactive'); },
+								enter:		function() { $(this).removeClass('inactive'); },
+								leave:		function() { $(this).addClass('inactive'); }
+							});
 
-				$menu._locked = true;
+						$('.main.style2')
+							.scrollex({
+								mode:		'middle',
+								delay:		100,
+								initialize:	function() { $(this).addClass('inactive'); },
+								terminate:	function() { $(this).removeClass('inactive'); },
+								enter:		function() { $(this).removeClass('inactive'); },
+								leave:		function() { $(this).addClass('inactive'); }
+							});
 
-				window.setTimeout(function() {
-					$menu._locked = false;
-				}, 350);
+					// Work.
+						$('#work')
+							.scrollex({
+								top:		'40vh',
+								bottom:		'30vh',
+								delay:		50,
+								initialize:	function() {
 
-				return true;
+												var t = $(this);
 
-			};
+												t.find('.row.images')
+													.addClass('inactive');
 
-			$menu._show = function() {
+											},
+								terminate:	function() {
 
-				if ($menu._lock())
-					$body.addClass('is-menu-visible');
+												var t = $(this);
 
-			};
+												t.find('.row.images')
+													.removeClass('inactive');
 
-			$menu._hide = function() {
+											},
+								enter:		function() {
 
-				if ($menu._lock())
-					$body.removeClass('is-menu-visible');
+												var t = $(this),
+													rows = t.find('.row.images'),
+													length = rows.length,
+													n = 0;
 
-			};
+												rows.each(function() {
+													var row = $(this);
+													window.setTimeout(function() {
+														row.removeClass('inactive');
+													}, 100 * (length - n++));
+												});
 
-			$menu._toggle = function() {
+											},
+								leave:		function(t) {
 
-				if ($menu._lock())
-					$body.toggleClass('is-menu-visible');
+												var t = $(this),
+													rows = t.find('.row.images'),
+													length = rows.length,
+													n = 0;
 
-			};
+												rows.each(function() {
+													var row = $(this);
+													window.setTimeout(function() {
+														row.addClass('inactive');
+													}, 100 * (length - n++));
+												});
 
-			$menu
-				.appendTo($body)
-				.on('click', function(event) {
-					event.stopPropagation();
+											}
+							});
+
+					// Contact.
+						$('#contact')
+							.scrollex({
+								top:		'50%',
+								delay:		50,
+								initialize:	function() { $(this).addClass('inactive'); },
+								terminate:	function() { $(this).removeClass('inactive'); },
+								enter:		function() { $(this).removeClass('inactive'); },
+								leave:		function() { $(this).addClass('inactive'); }
+							});
+
+				};
+
+				var off = function() {
+
+					// Generic sections.
+						$('.main.style1')
+							.unscrollex();
+
+						$('.main.style2')
+							.unscrollex();
+
+					// Work.
+						$('#work')
+							.unscrollex();
+
+					// Contact.
+						$('#contact')
+							.unscrollex();
+
+				};
+
+				skel.on('change', function() {
+
+					if (skel.breakpoint('mobile').active)
+						(off)();
+					else
+						(on)();
+
+				});
+
+			}
+
+		// Events.
+			var resizeTimeout, resizeScrollTimeout;
+
+			$window
+				.resize(function() {
+
+					// Disable animations/transitions.
+						$body.addClass('is-resizing');
+
+					window.clearTimeout(resizeTimeout);
+
+					resizeTimeout = window.setTimeout(function() {
+
+						// Update scrolly links.
+							$('a[href^=#]').scrolly({
+								speed: 1500,
+								offset: $header.outerHeight() - 1
+							});
+
+						// Re-enable animations/transitions.
+							window.setTimeout(function() {
+								$body.removeClass('is-resizing');
+								$window.trigger('scroll');
+							}, 0);
+
+					}, 100);
+
 				})
-				.on('click', 'a', function(event) {
-
-					var href = $(this).attr('href');
-
-					event.preventDefault();
-					event.stopPropagation();
-
-					// Hide.
-						$menu._hide();
-
-					// Redirect.
-						if (href == '#menu')
-							return;
-
-						window.setTimeout(function() {
-							window.location.href = href;
-						}, 350);
-
-				})
-				.append('<a class="close" href="#menu">Close</a>');
-
-			$body
-				.on('click', 'a[href="#menu"]', function(event) {
-
-					event.stopPropagation();
-					event.preventDefault();
-
-					// Toggle.
-						$menu._toggle();
-
-				})
-				.on('click', function(event) {
-
-					// Hide.
-						$menu._hide();
-
-				})
-				.on('keydown', function(event) {
-
-					// Hide on escape.
-						if (event.keyCode == 27)
-							$menu._hide();
-
+				.load(function() {
+					$window.trigger('resize');
 				});
 
 	});
