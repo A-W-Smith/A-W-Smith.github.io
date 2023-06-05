@@ -195,7 +195,7 @@ input, select, textarea {
 			width: -ms-max-content;
 			width: max-content;
 			padding-bottom: 0.5rem;
-			margin: 0 0 2rem 0;
+			margin: 0 0 2rem 40%;
 		}
 
 	h1 {
@@ -698,6 +698,10 @@ input, select, textarea {
 			display: block;
 			margin: 2.5rem 0;
 			width: 100%;
+		}
+
+		.map-span {
+			margin: 0 0 2rem 10%;
 		}
 
 			.image.main img {
