@@ -701,8 +701,17 @@ input, select, textarea {
 		}
 
 		.map-span {
-			margin: 0 0 2rem 10%;
-			width: 50%;
+			margin: 0 0 2rem 0;
+			padding-bottom: 50%;
+			position: relative;
+		}
+
+		.map-span iframe {
+			height: 100%;
+			width: 100%;
+			left: 0;
+			top: 0;
+			position: absolute;
 		}
 
 			.image.main img {
