@@ -702,6 +702,7 @@ input, select, textarea {
 
 		.map-span {
 			margin: 0 0 2rem 10%;
+			width: 50%;
 		}
 
 			.image.main img {
