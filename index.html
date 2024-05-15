@@ -29,6 +29,7 @@
 						</div>
 						<nav>
 							<ul>
+								<li><a href="#rsvp">RSVP</a></li>
 								<li><a href="#venue">Venue</a></li>
 							</ul>
 						</nav>
@@ -41,35 +42,50 @@
 								<div class="map-span"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d163299.8219578364!2d-3.042138844727672!3d56.3907447050907!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4886597b18eefc5f%3A0xaa28f87bbf0ad26e!2sRhynd%20Caf%C3%A9%20%26%20Events%20Venue!5e0!3m2!1sen!2suk!4v1685995271766!5m2!1sen!2suk" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
 								<a href="https://www.therhynd.com/" target="_blank">Venue Website</a>
 							</article>
-						<!-- Contact -->
-							<article id="contact">
-								<h2 class="major">Contact</h2>
-								<form method="post" action="#">
+						<!-- RSVP -->
+							<article id="rsvp">
+								<h2 class="major">RSVP</h2>
+								<form method="post" action="contact-form-process.php">
 									<div class="fields">
-										<div class="field half">
+										<div class="field">
 											<label for="name">Name</label>
 											<input type="text" name="name" id="name" />
 										</div>
-										<div class="field half">
-											<label for="email">Email</label>
-											<input type="text" name="email" id="email" />
+										<div class="field">
+											<label for="attending">Will you be able to make it?</label>
+											<input type="radio" id="yes" name="attending" value="Yes">
+											<label for="yes">Yes</label><br>
+											<input type="radio" id="no" name="attending" value="No">
+											<label for="no">No</label><br>
 										</div>
 										<div class="field">
-											<label for="message">Message</label>
-											<textarea name="message" id="message" rows="4"></textarea>
+											<label for="starter">Choose a starter:</label>
+											<select name="starter" id="starter">
+											  <option value="empty"></option>
+											  <option value="salmon">Hot smoked salmon, with salad and a light lemon and dill dressing</option>
+											  <option value="sweetPotatoSoup">Homemade sweet potato &amp; parsnip soup (Ve)</option>
+											  <option value="tomatoSoup">Homemade tomato soup with basil &amp; crème fraiche (V)</option>
+											</select>
+										</div>
+										<div class="field">
+											<label for="main">Choose a main</label>
+											<select name="main" id="main">
+											  <option value="empty"></option>
+											  <option value="chicken">Chicken breast in a peppercorn sauce, with vegetables &amp; potatoes</option>
+											  <option value="chickpea">Chickpea &amp; vegetable tagine with rice (Ve)</option>
+											  <option value="gnocchi">Potato gnocchi &amp; roast pepper stew with parmesan flakes (V)</option>
+											</select>
+										</div>
+										<div class="field">
+											<label for="dietary">Dietary Requirements</label>
+											<textarea name="dietary" id="dietary" rows="3"></textarea>
 										</div>
 									</div>
 									<ul class="actions">
-										<li><input type="submit" value="Send Message" class="primary" /></li>
+										<li><input type="submit" value="Submit" class="primary" /></li>
 										<li><input type="reset" value="Reset" /></li>
 									</ul>
 								</form>
-								<ul class="icons">
-									<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-									<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-									<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-									<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
-								</ul>
 							</article>
 					</div>
 				<!-- Footer -->
