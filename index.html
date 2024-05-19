@@ -53,12 +53,12 @@
 										</div>
 										<div class="field">
 											<label for="attending">Will you be able to make it?</label>
-											<input type="radio" id="yes" name="attending" value="Yes">
+											<input type="radio" id="yes" name="attending" value="Yes" onclick="document.getElementById('starterField').style.display =''; document.getElementById('mainField').style.display =''; document.getElementById('dietaryField').style.display ='';">
 											<label for="yes">Yes</label><br>
-											<input type="radio" id="no" name="attending" value="No">
+											<input type="radio" id="no" name="attending" value="No"  onclick="document.getElementById('starterField').style.display ='none'; document.getElementById('mainField').style.display ='none'; document.getElementById('dietaryField').style.display ='none';">
 											<label for="no">No</label><br>
 										</div>
-										<div class="field">
+										<div class="field" id="starterField" style="display:none">
 											<label for="starter">Choose a starter:</label>
 											<select name="starter" id="starter">
 											  <option value="empty"></option>
@@ -66,8 +66,9 @@
 											  <option value="sweetPotatoSoup">Homemade sweet potato &amp; parsnip soup (Ve)</option>
 											  <option value="tomatoSoup">Homemade tomato soup with basil &amp; crème fraiche (V)</option>
 											</select>
+											V = vegetarian, Ve = vegan. All vegetarian dishes can be made vegan upon request
 										</div>
-										<div class="field">
+										<div class="field" id="mainField" style="display:none">
 											<label for="main">Choose a main</label>
 											<select name="main" id="main">
 											  <option value="empty"></option>
@@ -76,7 +77,7 @@
 											  <option value="gnocchi">Potato gnocchi &amp; roast pepper stew with parmesan flakes (V)</option>
 											</select>
 										</div>
-										<div class="field">
+										<div class="field" id="dietaryField" style="display:none">
 											<label for="dietary">Dietary Requirements</label>
 											<textarea name="dietary" id="dietary" rows="3"></textarea>
 										</div>
