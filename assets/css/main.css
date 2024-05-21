@@ -37,6 +37,23 @@ ol, ul {
 	list-style: none;
 }
 
+.schedule-rows {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.schedule-times {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+}
+
+.schedule-items {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
 blockquote, q {
 	quotes: none;
 }
