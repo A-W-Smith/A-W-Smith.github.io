@@ -29,6 +29,7 @@
 					<h1>Andrew & Francesca's Wedding</h1>
 					<p>Wedding Date: Saturday 7th December 2024</p>
 					<p>Location: The Rhynd, Rhynd Farm, Leuchars, Tayport, KY16 0DR</p>
+					<p>Your presence is enough, no gifts please!</p>
 				</div>
 			</div>
 			<nav>
@@ -81,6 +82,7 @@
 			<!-- RSVP -->
 			<article id="rsvp">
 				<h2 class="major">RSVP</h2>
+				<h4>Please RSVP for each guest individually</h4>
 				<form method="post" action="https://formspree.io/f/mdoqjbqe">
 					<div class="fields">
 						<div class="field">
@@ -90,10 +92,10 @@
 						<div class="field">
 							<label for="attending">Will you be able to make it?</label>
 							<input type="radio" id="yes" name="attending" value="Yes"
-								onclick="document.getElementById('starterField').style.display =''; document.getElementById('mainField').style.display =''; document.getElementById('dietaryField').style.display ='';">
+								onclick="document.getElementById('starterField').style.display =''; document.getElementById('mainField').style.display =''; document.getElementById('dietaryField').style.display =''; document.getElementById('notAttendingField').style.display ='none';">
 							<label for="yes">Yes</label><br>
 							<input type="radio" id="no" name="attending" value="No"
-								onclick="document.getElementById('starterField').style.display ='none'; document.getElementById('mainField').style.display ='none'; document.getElementById('dietaryField').style.display ='none';">
+								onclick="document.getElementById('starterField').style.display ='none'; document.getElementById('mainField').style.display ='none'; document.getElementById('dietaryField').style.display ='none'; document.getElementById('notAttendingField').style.display ='';">
 							<label for="no">No</label><br>
 						</div>
 						<div class="field" id="starterField" style="display:none">
@@ -125,10 +127,17 @@
 							<label for="dietary">Dietary requirements:</label>
 							<textarea name="dietary" id="dietary" rows="3"></textarea>
 						</div>
+						<div class="field" id="notAttendingField" style="display:none">
+							<h4>Sorry to hear that!</h4>
+							<label for="notAttendingReason">If you wish to leave a message:</label>
+							<input type="text" name="notAttendingReason" id="notAttendingReason" />
+						</div>
 					</div>
 					<ul class="actions">
 						<li><input type="submit" value="Submit" class="primary" /></li>
-						<li><input type="reset" value="Reset" /></li>
+						<li><input type="reset" value="Reset"
+								onclick="document.getElementById('starterField').style.display ='none'; document.getElementById('mainField').style.display ='none'; document.getElementById('dietaryField').style.display ='none'; document.getElementById('notAttendingField').style.display ='none';" />
+						</li>
 					</ul>
 				</form>
 			</article>
